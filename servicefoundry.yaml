@@ -1,0 +1,22 @@
+service:
+  name: my-service
+  description: A simple FastAPI service that predicts using HuggingFace models.
+  image: python:3.8-slim
+  command: uvicorn app:app --reload
+  ports:
+    - 8000:8000
+  resources:
+    cpu_limit: 0.1
+    cpu_request: 0.1
+    memory_limit: 1600
+    memory_request: 1500
+    ephemeral_storage_limit: 1000
+    ephemeral_storage_request: 1000
+  pipelines:
+    - name: text-generation
+      model_url: https://textgen-intern-kuldeep.demo1.truefoundry.com
+    - name: zero-shot-classification
+      model_url: https://zeroshot-intern-kuldeep.demo1.truefoundry.com
+      candidate_labels: ["label1", "label2", "label3"]
+    - name: object-detection
+      model_url: https://object-detection-intern-kuldeep.demo1.truefoundry.com
